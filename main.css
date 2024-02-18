@@ -21,6 +21,10 @@ body::-webkit-scrollbar-thumb {
     color: #ff0000 !important;
 }
 
+.input-group-text.text-muted {
+    border: none;
+}
+
 /* main */
 .row {
     gap: 10px;

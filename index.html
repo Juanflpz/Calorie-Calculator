@@ -51,18 +51,46 @@
               <fieldset>
                 <legend class="h2 text-center">Calorie calculator</legend>
                 <div class="mb-3">
-                  <label for="edad" class="form-label h6">Age</label>
-                  <input type="number" id="age" class="form-control" min="15" max="80" placeholder="Enter your age">
+                  <label for="name" class="form-label h6">Name</label>
+                  <input type="text" id="name" class="form-control" min="15" max="80" placeholder="Enter your name">
                 </div>
 
                 <div class="mb-3">
-                  <label for="peso" class="form-label h6">Weight</label>
+                  <label for="ids" class="form-label h6">Identity document</label>
+                  <select id="ids" class="form-select">
+                    <option></option>
+                    <option>Passport</option>
+                    <option>Foreign Passport</option>
+                    <option>Driver´s License</option>
+                    <option>Identification card</option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label for="numberid" class="form-label h6">Number id</label>
+                  <input type="text" id="numberid" class="form-control" min="15" max="80" placeholder="Enter your selected ID number">
+                </div>
+
+                <div class="mb-3">
+                  <label for="age" class="form-label h6">Age</label>
+                  <input type="number" id="age" class="form-control" min="15" max="80" placeholder="Enter your age">
+                </div>             
+
+                <div class="mb-3">
+                  <label for="weight" class="form-label h6">Weight</label>
                   <input type="number" id="weight" class="form-control" placeholder="Enter your weight in kg">
                 </div>
 
-                <div class="mb-3">
-                  <label for="altura" class="form-label h6">Height</label>
+                <label for="weight" class="form-label h6">Weight</label>
+                <div class="input-group mb-3">
+                  <input type="number" id="weight" class="form-control" placeholder="Enter your weight in kg">
+                  <span class="input-group-text text-muted">kg</span>
+                </div>
+
+                <label for="height" class="form-label h6">Height</label>
+                <div class="input-group mb-3">
                   <input type="number" id="height" class="form-control" placeholder="Enter your height in cm">
+                  <span class="input-group-text text-muted">cm</span>
                 </div>
 
                 <div class="mb-3">
@@ -77,20 +105,19 @@
                   </select>
                 </div>
                 
-                <section class="row m-2 h-100">
+                <section class="row m-1 h-100">
                   <span class="h6 p-0">Gender</span>
-                  <div class="form-check">
-                    <input class="form-check-input" value="F" type="radio" name="gender" id="female" checked>
-                    <label class="form-check-label" for="female">
-                      Female
-                    </label>
+                  <div class="col">
+                    <div class="form-check">
+                      <input class="form-check-input" value="F" type="radio" name="gender" id="female" checked>
+                      <label class="form-check-label" for="female">Female</label>
+                    </div>
                   </div>
-
-                  <div class="form-check">
-                    <input class="form-check-input" value="M" type="radio" name="gender" id="male">
-                    <label class="form-check-label" for="male">
-                      Male
-                    </label>
+                  <div class="col">
+                      <div class="form-check">
+                          <input class="form-check-input" value="M" type="radio" name="gender" id="male">
+                          <label class="form-check-label" for="male">Male</label>
+                      </div>
                   </div>
                 </section>
                 <hr>
