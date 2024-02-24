@@ -25,7 +25,7 @@ function calculateCalories(){
         return null;
     }
 
-    //regexValidations(name, documentNumber);
+    //validateFields(name, documentNumber);
 
     const bmr = {
         age:    5,
@@ -37,7 +37,8 @@ function calculateCalories(){
     let ageMessage = verifyAge(age);
 
     // Result
-    const calories = activity.value * ((bmr.weight * weight.value) + (bmr.height * height.value) - (bmr.age * age.value) + bmr.gender);
+    // const calories = activity.value * ((bmr.weight * weight.value) + (bmr.height * height.value) - (bmr.age * age.value) + bmr.gender); delete this line once teh calculatorForm function is done
+    const calories = calculatorForm(age, weight, height, activity, gender);
 
     showResult(name, documentType, documentNumber, calories, ageMessage);
 
@@ -67,11 +68,10 @@ function showResult(name, documentType, documentNumber, calories, msg) {
 
     result.innerHTML = `
         <div class="card-body d-flex flex-column justify-content-center align-items-center h-100" id="calculation">
-            <h5 class="card-title h2">Results</h5>
+            <h5 class="card-title h2 mb-3">RESULTS</h5>
             <div class="mb-3 w-100">
-                <p>The patient ${name.value} identified with ${documentType} NO. ${documentNumber.value}, requires a total of ${Math.round(calories)} kcal to mantain its TBM.</p>
+                <p>The patient ${name.value} identified with ${documentType.value} NO. ${documentNumber.value} ${msg} and requires a total of ${Math.round(calories)} kcal to mantain its TBM.</p>
                 <br> <br>
-                ${msg}
             </div>
         </div>
     `;
@@ -88,11 +88,11 @@ function filled(fields) { //checks if all the fields are filled
 
 function verifyAge(age) {
     if (age.value >= 15 && age.value <= 29) {
-        return "The patient belongs to the youth population group.";
+        return "belongs to the youth population group";
     } else if (age.value >= 30 && age.value <= 59) {
-        return "The patient belongs to the adult population group.";
+        return "belongs to the adult population group";
     } else {
-        return "The patient belongs to the older adults population group.";
+        return "belongs to the older adults population group";
     }
 }
 
