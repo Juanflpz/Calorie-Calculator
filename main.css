@@ -12,6 +12,11 @@ body::-webkit-scrollbar-thumb {
     background-color: rgb(122, 0, 0);
 }
 
+.title {
+    color: white;
+    background-color: #ff0000;
+}
+
 /* header */
 .header a {
     font-size: 1.5em;
