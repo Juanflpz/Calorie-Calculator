@@ -19,3 +19,5 @@ el paciente dependiendo de su edad:
     - Entre 15 y 29 años: Joven.
     - Entre 30 y 59 años: adultos.
     - Entre 60 años en adelante: adultos mayores.
+
+hacer que al darle en el submit no se recargue toda la página ni cambie los campos

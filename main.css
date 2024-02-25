@@ -12,6 +12,11 @@ body::-webkit-scrollbar-thumb {
     background-color: rgb(122, 0, 0);
 }
 
+.title {
+    color: white;
+    background-color: #ff0000;
+}
+
 /* header */
 .header a {
     font-size: 1.5em;
@@ -21,6 +26,10 @@ body::-webkit-scrollbar-thumb {
     color: #ff0000 !important;
 }
 
+.input-group-text.text-muted {
+    border: none;
+}
+
 /* main */
 .row {
     gap: 10px;
@@ -28,7 +37,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .main-content {
-    background-image: linear-gradient(#000000c7,#00000054), url('/img/cover.png');
+    background-image: linear-gradient(#000000c7,#00000054), url('/img/ingredients-bg.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;

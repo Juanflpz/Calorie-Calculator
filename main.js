@@ -1,39 +1,112 @@
+const form = document.getElementById("calculator-form");
+const result = document.getElementById("result");
+
+form.addEventListener("submit", (event) => { //avoids the website to render itself when calculating the tmb
+    event.preventDefault();
+    calculateCalories();
+});
+
 function calculateCalories(){
-    const tmbMultiplier = {
+    // Inputs
+    const name           = document.querySelector("#name");
+    let documentType     = document.querySelector("#document-type");
+    const documentNumber = document.querySelector("#numberid");
+    const age            = document.querySelector("#age");
+    const weight         = document.querySelector("#weight");
+    const height         = document.querySelector("#height");
+    const activity       = document.querySelector("#activity");
+    const gender         = document.querySelector('input[name="gender"]:checked');
+
+    if (!filled([name, documentType, documentNumber, age, weight, height, activity, gender])) {
+        if(!calculation){
+            showErrorMessage('Please make sure you fill out all fields', 'warning');
+        }
+        showErrorMessage("Please make sure you fill out all fields");
+        return null;
+    }
+
+    //validateFields(name, documentNumber);
+
+    const bmr = {
+        age:    5,
         weight: 10,
         height: 6.25,
-        age: 5
-    }
-    
-    let totalCalories
+        gender: gender.value === "M" ? 5 : -161,
+    };
 
-    //formula for men: activity value x (10 x weight in kg) + (6,25 × height in cm) - (5 × age in years) + 5
-    //formula for women: activity value x (10 x weight in kg) + (6,25 × height in cm) - (5 × age in years) + 161
-    //totalCalories.value = `${Math.floor(calorieCalculation)} kcal`;
+    let ageMessage = verifyAge(age);
+
+    // Result
+    const calories = activity.value * ((bmr.weight * weight.value) + (bmr.height * height.value) - (bmr.age * age.value) + bmr.gender); //delete this line once teh calculatorForm function is done
+    //const calories = calculatorForm(age, weight, height, activity, gender);
+
+    showResult(name, documentType, documentNumber, calories, ageMessage);
+
+    //delete all this if you want the page not to clear all the fields
+    name.value = null;
+    documentType = null;
+    documentNumber.value = null;
+    age.value = null;
+    weight.value = null;
+    height.value = null;
+    activity.value = null;
+    gender.value = null;
+}
+
+function showResult(name, documentType, documentNumber, calories, msg) {
+    result.style.top = "100vh";
+    result.style.display = "block";
+    let distance = 100;
+    let subs = 0.3;
+    let id = setInterval(() => {
+        subs *= 1.1;
+        result.style.top = `${distance - subs}vh`;
+        if (subs > 100) {
+            clearInterval(id);
+        }
+    }, 10);
 
     result.innerHTML = `
-        <div class=" card-body d-flex flex-column justify-content-center align-items-center h-100" id="calculation">
-            <h5 class="card-title h2">Required calories</h5>
+        <div class="card-body d-flex flex-column justify-content-center align-items-center h-100" id="calculation">
+            <h5 class="card-title h2 mb-3">RESULTS</h5>
             <div class="mb-3 w-100">
-                <input class="form-control text-center" value="${totalCalories} kcal" style="font-size: 2rem" disabled>
+                <p>The patient ${name.value} identified with ${documentType.value} NO. ${documentNumber.value} ${msg} and requires a total of ${Math.round(calories)} kcal to mantain its TBM.</p>
+                <br> <br>
             </div>
         </div>
-    `
-    //Clean the variables
+    `;
+}
+
+function filled(fields) { //checks if all the fields are filled
+    for (let field of fields) {
+        if (field.value == null || field.value == undefined || field.value == "") {
+            return false;
+        }
+    }
+    return true;
+}
+
+function verifyAge(age) {
+    if (age.value >= 15 && age.value <= 29) {
+        return "belongs to the youth population group";
+    } else if (age.value >= 30 && age.value <= 59) {
+        return "belongs to the adult population group";
+    } else {
+        return "belongs to the older adults population group";
+    }
 }
 
 function showErrorMessage(msg) {
     const calculation = document.querySelector('#calculation');
-
-    if(calculation) {
+    if(calculation) { //verifies if it exists and clears its value
         calculation.remove();
     }
-
+    //shows the error message
     const divError = document.createElement('div');
     divError.className = 'd-flex justify-content-center align-items-center h-100';
     divError.innerHTML = `<span class="alert alert-danger text-center">${msg}</span>`;
     result.appendChild(divError);
-
+    //deletes the error message
     setTimeout(() => {
         divError.remove();
         fadeResult();
@@ -42,112 +115,13 @@ function showErrorMessage(msg) {
 
 function fadeResult() {
     let distance = 1;
-
     let id = setInterval(() => {
         distance *= 2;
         result.style.top = `${distance}vh`;
         if (distance > 100) {
             clearInterval(id);
-            result.style.display = 'none';
+            result.style.display = "none";
             result.style.top = 0;
         }
-    }, 10)
+    }, 10);
 }
-
-// Animations
-function showResult() {
-    result.style.top = '100vh';
-    result.style.display = 'block';
-    
-    let distance = 100;
-    let subtraction = 0.3; //resta (eliminar este comment)
-    let id = setInterval(() => {
-        subtraction *= 1.1;
-        resultado.style.top = `${distance - subtraction}vh`;
-        if (subtraction > 100) {
-            clearInterval(id);
-        }
-    }, 10)
-}
-
-/*
-function calcularCalorias() {
-
-    const multiplicadorTMB = {
-        peso: 10,
-        altura: 6.25,
-        edad: 5
-    }
-
-        //Formula hombres: valor actividad x (10 x peso en kg) + (6,25 × altura en cm) - (5 × edad en años) + 5
-
-        //Formula mujeres: valor actividad x (10 x peso en kg) + (6,25 × altura en cm) - (5 × edad en años) - 161
-
-    
-    // totalCalorias.value = `${Math.floor(calculoCalorias)} kcal`;
-    
-    resultado.innerHTML = `
-        <div class=" card-body d-flex flex-column justify-content-center align-items-center h-100" id="calculo">
-            <h5 class="card-title h2">Calorías requeridas</h5>
-            <div class="mb-3 w-100">
-                <input class="form-control text-center" value="${} kcal" style="font-size: 2rem" disabled>
-            </div>
-        </div>
-    `
-     // Volver a limpiar variables
-
-}
-*/
-
-/* 
-function desvanecerResultado() {
-    let distancia = 1;
-
-    let id = setInterval(() => {
-        distancia *= 2;
-        resultado.style.top = `${distancia}vh`;
-        if (distancia > 100) {
-            clearInterval(id);
-            resultado.style.display = 'none';
-            resultado.style.top = 0;
-        }
-    }, 10)
-}
-*/
-
-/*
-function mostrarMensajeDeError(msg) {
-    const calculo = document.querySelector('#calculo');
-    if (calculo) {
-        calculo.remove();
-    }
-
-    const divError = document.createElement('div');
-    divError.className = 'd-flex justify-content-center align-items-center h-100';
-    divError.innerHTML = `<span class="alert alert-danger text-center">${msg}</span>`;
-
-    resultado.appendChild(divError);
-
-    setTimeout(() => {
-        divError.remove();
-        desvanecerResultado();
-    }, 5000);
-}
-*/
-
-/*
-function aparecerResultado() {
-    resultado.style.top = '100vh';
-    resultado.style.display = 'block';
-    
-    let distancia = 100;
-    let resta = 0.3;
-    let id = setInterval(() => {
-        resta *= 1.1;
-        resultado.style.top = `${distancia - resta}vh`;
-        if (resta > 100) {
-            clearInterval(id);
-        }
-    }, 10)
-}
-*/
