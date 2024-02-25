@@ -19,7 +19,7 @@ function calculateCalories(){
 
     if (!filled([name, documentType, documentNumber, age, weight, height, activity, gender])) {
         if(!calculation){
-            showAlert('Please make sure you fill out all fields', 'warning');
+            showErrorMessage('Please make sure you fill out all fields', 'warning');
         }
         showErrorMessage("Please make sure you fill out all fields");
         return null;
@@ -37,8 +37,8 @@ function calculateCalories(){
     let ageMessage = verifyAge(age);
 
     // Result
-    // const calories = activity.value * ((bmr.weight * weight.value) + (bmr.height * height.value) - (bmr.age * age.value) + bmr.gender); delete this line once teh calculatorForm function is done
-    const calories = calculatorForm(age, weight, height, activity, gender);
+    const calories = activity.value * ((bmr.weight * weight.value) + (bmr.height * height.value) - (bmr.age * age.value) + bmr.gender); //delete this line once teh calculatorForm function is done
+    //const calories = calculatorForm(age, weight, height, activity, gender);
 
     showResult(name, documentType, documentNumber, calories, ageMessage);
 
